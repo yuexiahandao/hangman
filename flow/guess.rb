@@ -18,12 +18,14 @@ module Flow
   def self.guess_word(char)
     response = Guess.new(Flow::SESSION_ID, ::MyHttp::HTTP, char).guess
     word = response["data"]["word"]
+    wrong_times = response["data"]["wrongGuessCountOfCurrentWord"]
 
     puts "################################################"
     puts "Try to guess!"
+    puts "Guess Char : " + char.to_s
     puts "result : " + word
     puts "################################################"
 
-    word
+    [word,wrong_times]
   end
 end

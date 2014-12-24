@@ -18,6 +18,13 @@ class Log
   def print_std_log(content)
     @std_log.info content
   end
+
+  def print_both(content)
+    @file_log.info content
+    @std_log.info content
+  end
 end
 
-LOG = Log.new("log.txt", true)
+file_name = "log/log_" + Time.now.to_i.to_s + ".txt"
+
+LOG = Log.new(file_name, true)

@@ -14,12 +14,14 @@ require File.expand_path('../log.rb', __FILE__)
 #search the char to guess
 require File.expand_path('../search/find_array.rb', __FILE__)
 
+LOG.print_file_log "**********************************"
+LOG.print_file_log "**          Welcome             **"
+LOG.print_file_log "**********************************"
 
-LOG.print_std_log "SESSION_ID : " + Flow::SESSION_ID.to_s
-LOG.print_std_log "times to guess : " + Flow::GUESS_WORDS_NUM.to_s
-LOG.print_std_log "chances to guess : " + Flow::ALLOW_WRONG_TIME.to_s
-LOG.print_std_log "Words Length : " + Flow::LENGTH.to_s
-LOG.print_std_log "Word to guess : " + Flow::PRIMARY_WORD.to_s
+
+LOG.print_both "SESSION_ID : " + Flow::SESSION_ID.to_s
+LOG.print_both "times to guess : " + Flow::GUESS_WORDS_NUM.to_s
+LOG.print_both "chances to guess : " + Flow::ALLOW_WRONG_TIME.to_s
 
 
 # guess
@@ -30,10 +32,56 @@ LOG.print_std_log "Word to guess : " + Flow::PRIMARY_WORD.to_s
   LOG.print_file_log "The " + i.to_s + "th word to guess!"
 
   #indexs = 0...Flow::LENGTH
-  array = FileOperator.new(Flow::LENGTH).get_array
-  1.upto(10) do |index|
-    operator = ::Search::FindArray.new(array, Flow::PRIMARY_WORD, nil)
-  end
+  length, primary_word = Flow.get_word
+  LOG.print_both "Words Length : " + length.to_s
+  LOG.print_both "Word to guess : " + primary_word.to_s
+
+  array = FileOperator.new(length).get_array
+  #LOG.print_file_log array.to_s
+
+  operator = ::Search::FindArray.new(array, primary_word)
+  
+  catch(:exit) {
+    while operator.unfinished?
+      chars = operator.find_char
+      n = 0
+
+      while operator.guess_wrong?
+      	LOG.print_file_log chars.to_s
+
+        if chars.nil? || chars[n].nil?
+          LOG.print_both "Sorry the word is not in word list! Please add it!"
+          LOG.print_both "failed to guess this word!"
+          LOG.print_both "last match is #{operator.current}"
+          throw :exit
+        end
+
+        char = chars[n][0]
+        word, wrong_times = Flow.guess_word(char)
+
+        LOG.print_both "guess result world: #{word}"
+        LOG.print_both "guess char: #{char}"
+        LOG.print_both "guess wrong_times : #{wrong_times}"
+
+        operator.set_params(word, char)
+        n += 1
+
+        if wrong_times >= 10
+          puts "failed to guess this word!Last match is #{operator.current}"
+          LOG.print_file_log "failed to guess this word!Last match is #{operator.current}"
+          throw :exit
+        end
+
+      end
+
+      operator.init_for_next_turn
+    end
+
+    puts "Finished Guess! The word is #{operator.current}"
+    LOG.print_file_log "Finished Guess! The word is #{operator.current}"
+  }
+
+  #puts chars[0][0],"==="
 end
 
 # show user's score

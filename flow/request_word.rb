@@ -1,4 +1,5 @@
 module Flow
+
   class RequestWord
     def initialize(sessionId, http)
       @data = "{
@@ -14,13 +15,17 @@ module Flow
     end
   end
 
-  response = RequestWord.new(Flow::SESSION_ID, ::MyHttp::HTTP).next_word
-  PRIMARY_WORD = response["data"]["word"]
-  LENGTH = response["data"]["word"].length
+  def self.get_word
+    response = RequestWord.new(Flow::SESSION_ID, ::MyHttp::HTTP).next_word
+    primary_word = response["data"]["word"]
+    length = response["data"]["word"].length
 
-  puts "++++++++++++++++++++++++++++++++++++++++++++++++"
-  puts "Get a word!"
-  puts "length: " + LENGTH.to_s
-  puts "++++++++++++++++++++++++++++++++++++++++++++++++"
+    puts "++++++++++++++++++++++++++++++++++++++++++++++++"
+    puts "Get a word!"
+    puts "length: " + length.to_s
+    puts "++++++++++++++++++++++++++++++++++++++++++++++++"
+
+    [length, primary_word]
+  end
 
 end

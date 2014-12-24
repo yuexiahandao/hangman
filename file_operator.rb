@@ -14,16 +14,23 @@ class FileOperator
     if File.exist?(@name)
       file = File.open(@name,"r") do |file|
         while line=file.gets
-          a << line.chomp
+          a << line.chomp if line!="\n"
         end
       end
     else
       file = File.open(@name,"w") do |file|
         file2 = File.open("words.txt","r") do |f|
           while line=f.gets
-            if line.length == (@len + 1)
-              a << line.upcase
-              file.puts line.upcase
+
+            if line.nil?
+              next
+            else
+              line = line.chomp.upcase
+            end
+
+            if line.length == @len
+              a << line
+              file.puts line
             end
           end
         end
