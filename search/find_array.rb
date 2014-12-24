@@ -33,7 +33,10 @@ module Search
     def find_char
       if @match == true
         find_array
+        remove_miss_match_words
         @match == false
+      else
+        remove_miss_match_words
       end
       #puts @array.to_s
       @chars = analysis
@@ -51,6 +54,29 @@ module Search
 
     def set_pattern
       @pattern = ::Regexp.new(current.gsub(/\*/,"."))
+    end
+
+    def remove_miss_match_words
+      return if @miss_chars == []
+
+      pattern = "["
+      i = 0
+      @miss_chars.each do |a|
+        if i == 0
+          i += 1
+        else
+          pattern << "|"
+        end
+
+        pattern << a.to_s
+      end
+      pattern << "]"
+
+      @pattern = Regexp.new(pattern)
+
+      @array.reject! do |item|
+        item.match(@pattern) != nil
+      end
     end
 
     def find_array

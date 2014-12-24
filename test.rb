@@ -44,37 +44,37 @@ LOG.print_both "chances to guess : " + Flow::ALLOW_WRONG_TIME.to_s
   catch(:exit) {
     while operator.unfinished?
       chars = operator.find_char
-      n = 0
 
-      while operator.guess_wrong?
-      	LOG.print_file_log chars.to_s
+      LOG.print_file_log chars.to_s
 
-        if chars.nil? || chars[n].nil?
-          LOG.print_both "Sorry the word is not in word list! Please add it!"
-          LOG.print_both "failed to guess this word!"
-          LOG.print_both "last match is #{operator.current}"
-          throw :exit
-        end
-
-        char = chars[n][0]
-        word, wrong_times = Flow.guess_word(char)
-
-        LOG.print_both "guess result world: #{word}"
-        LOG.print_both "guess char: #{char}"
-        LOG.print_both "guess wrong_times : #{wrong_times}"
-
-        operator.set_params(word, char)
-        n += 1
-
-        if wrong_times >= 10
-          puts "failed to guess this word!Last match is #{operator.current}"
-          LOG.print_file_log "failed to guess this word!Last match is #{operator.current}"
-          throw :exit
-        end
-
+      if chars.nil? || chars[0].nil?
+        LOG.print_both "Sorry the word is not in word list! Please add it!"
+        LOG.print_both "failed to guess this word!"
+        LOG.print_both "last match is #{operator.current}"
+        throw :exit
       end
 
-      operator.init_for_next_turn
+      char = chars[0][0]
+      word, wrong_times = Flow.guess_word(char)
+
+      LOG.print_both "guess result world: #{word}"
+      LOG.print_both "guess char: #{char}"
+      LOG.print_both "guess wrong_times : #{wrong_times}"
+
+      operator.set_params(word, char)
+
+      if wrong_times >= 10
+        puts "failed to guess this word!Last match is #{operator.current}"
+        LOG.print_file_log "failed to guess this word!Last match is #{operator.current}"
+        throw :exit
+      end
+
+      if operator.guess_wrong?
+        operator.add_miss_chars(char)
+      else
+        operator.init_for_next_turn
+      end
+
     end
 
     puts "Finished Guess! The word is #{operator.current}"
