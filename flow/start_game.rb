@@ -12,7 +12,13 @@ module Flow
     end
 
     def start
-      response = ::MyHttp::HTTP.post(::MyHttp::URI.path, @data)
+      begin
+        response = ::MyHttp::HTTP.post(::MyHttp::URI.path, @data)
+      rescue
+        LOG.print_both "network error, try again"
+        retry
+      end
+      
       JSON.parse(response.body)
     end
 

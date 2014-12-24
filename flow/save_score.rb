@@ -9,13 +9,19 @@ module Flow
     end
 
     def save
-      response = @http.post(::MyHttp::URI.path, @data)
+      begin
+        response = @http.post(::MyHttp::URI.path, @data)
+      rescue
+        LOG.print_both "network error, try again"
+        retry
+      end
+      
       JSON.parse(response.body)
     end
   end
 
   def self.do_save
-    response = SaveScore.new(Flow::SESSION_ID, ::MyHttp::HTTP).score
+    response = SaveScore.new(Flow::SESSION_ID, ::MyHttp::HTTP).save
     puts response
     puts "================================================"
     puts "Save User's Score Done"

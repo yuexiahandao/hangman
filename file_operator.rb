@@ -18,6 +18,8 @@ class FileOperator
         end
       end
     else
+      exit(1) unless File.exist?("words.txt")
+      
       file = File.open(@name,"w") do |file|
         file2 = File.open("words.txt","r") do |f|
           while line=f.gets

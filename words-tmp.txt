@@ -1158,7 +1158,6 @@ chilly
 chimney
 chin
 china
-china
 chinese
 chip
 chocolate
@@ -1231,7 +1230,6 @@ clock
 clockwise
 close
 closed
-close
 closely
 closet
 cloth
@@ -1284,7 +1282,6 @@ collide
 collision
 colonel
 colonial
-colonist
 colonist
 colony
 color
@@ -3729,7 +3726,6 @@ infrequent
 infringe
 infringement
 ingenious
-ingenious
 ingenuity
 inhabit
 inhabitant
@@ -4318,7 +4314,6 @@ map
 maple
 marble
 march
-march
 margin
 marginal
 marine
@@ -4347,7 +4342,6 @@ mass
 massacre
 massage
 massive
-mass
 mast
 master
 masterpiece
@@ -4368,7 +4362,6 @@ mature
 maturity
 maximize
 maximum
-may
 may
 maybe
 mayor
@@ -4420,7 +4413,6 @@ merchandise
 merchant
 mercantile
 merciful
-mercury
 mercury
 mercy
 mere
@@ -7436,9 +7428,6 @@ union
 unique
 unit
 unite
-united
-united
-united
 united
 unity
 universal

@@ -1,6 +1,8 @@
 require 'net/http'
 require 'json'
 
+#print logs
+require File.expand_path('../log.rb', __FILE__)
 #Flow
 require File.expand_path('../flow/start_game.rb', __FILE__)
 require File.expand_path('../flow/request_word.rb', __FILE__)
@@ -9,8 +11,6 @@ require File.expand_path('../flow/get_score.rb', __FILE__)
 require File.expand_path('../flow/save_score.rb', __FILE__)
 #read words from file
 require File.expand_path('../file_operator.rb', __FILE__)
-#print logs
-require File.expand_path('../log.rb', __FILE__)
 #search the char to guess
 require File.expand_path('../search/find_array.rb', __FILE__)
 
