@@ -10,6 +10,7 @@ class FileOperator
   end
 
   def get_array
+    Dir.mkdir("word_data")  unless Dir.exist?("word_data")
     a = []
     if File.exist?(@name)
       file = File.open(@name,"r") do |file|
@@ -20,8 +21,8 @@ class FileOperator
     else
       exit(1) unless File.exist?("words.txt")
       
-      file = File.open(@name,"w") do |file|
-        file2 = File.open("words.txt","r") do |f|
+      File.open(@name,"w") do |file|
+        File.open("words.txt","r") do |f|
           while line=f.gets
 
             if line.nil?
@@ -37,11 +38,8 @@ class FileOperator
           end
         end
 
-        #file2.close
       end
     end
-
-    #file.close
     a
   end
 

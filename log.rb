@@ -25,6 +25,8 @@ class Log
   end
 end
 
+Dir.mkdir("log")  unless Dir.exist?("log")
+
 file_name = "log/log_" + Time.now.to_i.to_s + ".txt"
 
 LOG = Log.new(file_name, true)

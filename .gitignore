@@ -1,2 +1,2 @@
-log/
-word_data/
+log/*
+word_data/*

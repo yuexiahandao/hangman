@@ -88,7 +88,7 @@ end
 Flow.get_score
 
 # ask to save the score
-print "Do you satisfied with your score? Do you want to save it?"
+print "Do you satisfied with your score? Do you want to save it?(yes/no)"
 save_or_not = gets
 
 if save_or_not.upcase == "YES\n" || save_or_not.upcase == "Y\n"
