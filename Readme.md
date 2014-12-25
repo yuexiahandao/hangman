@@ -18,4 +18,4 @@ author : Gavin Zhang
 
 email  : zlcgavin@gmail.com
 
-Score : 1080
+Score : 1117

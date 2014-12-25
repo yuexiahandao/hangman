@@ -13,6 +13,7 @@ require File.expand_path('../flow/save_score.rb', __FILE__)
 require File.expand_path('../file_operator.rb', __FILE__)
 #search the char to guess
 require File.expand_path('../search/find_array.rb', __FILE__)
+require File.expand_path('../search/operate_less_word.rb', __FILE__)
 
 LOG.print_file_log "**********************************"
 LOG.print_file_log "**          Welcome             **"
@@ -39,7 +40,13 @@ LOG.print_both "chances to guess : " + Flow::ALLOW_WRONG_TIME.to_s
   array = FileOperator.new(length).get_array
   #LOG.print_file_log array.to_s
 
-  operator = ::Search::FindArray.new(array, primary_word)
+  if length <= 5
+    operator = ::Search::OperateLessWord.new(array, primary_word)
+  else
+    operator = ::Search::FindArray.new(array, primary_word)
+  end
+
+  operator.remain = length
   
   catch(:exit) {
     while operator.unfinished?
@@ -73,6 +80,7 @@ LOG.print_both "chances to guess : " + Flow::ALLOW_WRONG_TIME.to_s
         operator.add_miss_chars(char)
       else
         operator.init_for_next_turn
+        operator.remain -= 1
       end
 
     end

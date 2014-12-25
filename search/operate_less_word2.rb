@@ -40,7 +40,11 @@ module Search
       end
       #puts @array.to_s
       @chars = analysis
-      find_main_char
+      if @remain > 1
+        find_main_char
+      else
+        @chars
+      end
     end
 
     def guess_wrong?
@@ -119,10 +123,17 @@ module Search
         #puts values
         keys = values.map{|v| v[0]}
 
-        result[i] = keys.length
-        length = result[i] - 1
+        result[i] = keys.length*@remain
+        length = keys.length - 1
 
         judge = 0
+
+        length.downto(1) do |s|
+          a = values[s][0]
+          pattern = Regexp.new "#{a}"
+          times = find_times(array,pattern)
+          result[i] - times
+        end
 
         length.downto(0) do |s|
           keys.each do |k|

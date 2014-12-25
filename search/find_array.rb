@@ -1,6 +1,6 @@
 module Search
   class FindArray
-    attr_accessor :match, :previous, :current
+    attr_accessor :match, :previous, :current, :remain
 
     def initialize(array, previous)
       @array = array
