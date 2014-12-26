@@ -1,5 +1,7 @@
 ## Run instructions
 
+This program cannot be run now. Your need to add url and user name.
+
 Please get into the root path and then run the commond `ruby test.rb`.
 
 ## Information
