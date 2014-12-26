@@ -24,7 +24,7 @@ module Flow
 
   end
 
-  response = StartGame.new("zlcgavin@gmail.com").start
+  response = StartGame.new("×××××××××××××").start
 
   GUESS_WORDS_NUM = response["data"]["numberOfWordsToGuess"]
   ALLOW_WRONG_TIME = response["data"]["numberOfGuessAllowedForEachWord"]
