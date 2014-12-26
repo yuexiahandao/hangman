@@ -12,12 +12,12 @@ module Flow
     def guess
       begin
         response = @http.post(::MyHttp::URI.path, @data)
+        JSON.parse(response.body)
       rescue
         LOG.print_both "network error, try again"
         retry
       end
-      
-      JSON.parse(response.body)
+
     end
   end
 

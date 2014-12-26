@@ -14,6 +14,7 @@ require File.expand_path('../file_operator.rb', __FILE__)
 #search the char to guess
 require File.expand_path('../search/find_array.rb', __FILE__)
 require File.expand_path('../search/operate_less_word.rb', __FILE__)
+require File.expand_path('../search/operate_less_word2.rb', __FILE__)
 
 LOG.print_file_log "**********************************"
 LOG.print_file_log "**          Welcome             **"
@@ -41,7 +42,7 @@ LOG.print_both "chances to guess : " + Flow::ALLOW_WRONG_TIME.to_s
   #LOG.print_file_log array.to_s
 
   if length <= 5
-    operator = ::Search::OperateLessWord.new(array, primary_word)
+    operator = ::Search::OperateLessWord2.new(array, primary_word)
   else
     operator = ::Search::FindArray.new(array, primary_word)
   end

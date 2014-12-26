@@ -2,6 +2,9 @@
 
 Please get into the root path and then run the commond `ruby test.rb`.
 
+## Information
+
+About The latest verson, I add new search char class to search the most useful char to guess the word. This class will work when the word's length is less than or equal to 5. This class works very slow.
 
 ## Note
 
@@ -18,4 +21,4 @@ author : Gavin Zhang
 
 email  : zlcgavin@gmail.com
 
-Score : 1117
+Score : 1240
